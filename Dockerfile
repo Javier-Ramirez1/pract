@@ -1,14 +1,20 @@
-# Imagen base con Java 17
-FROM eclipse-temurin:17
+# ===== BUILD STAGE =====
+FROM maven:3.9-eclipse-temurin-17 AS build
 
-# Carpeta dentro del contenedor
 WORKDIR /app
 
-# Copiar el jar generado
-COPY target/*.jar app.jar
+COPY pom.xml .
+COPY src ./src
 
-# Puerto de Spring Boot
+RUN mvn clean package -DskipTests
+
+# ===== RUNTIME =====
+FROM eclipse-temurin:17
+
+WORKDIR /app
+
+COPY --from=build /app/target/*.jar app.jar
+
 EXPOSE 8080
 
-# Ejecutar la app
 ENTRYPOINT ["java","-jar","app.jar"]
