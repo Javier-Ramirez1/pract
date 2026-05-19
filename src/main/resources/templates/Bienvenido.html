@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bienvenido</title>
+</head>
+<body>
+
+<h1 id="mensaje"></h1>
+
+<script>
+
+    const socket = new WebSocket("ws://localhost:8080/ws");
+
+    socket.onmessage = function(event) {
+        document.getElementById("mensaje").innerHTML = event.data;
+    };
+
+</script>
+
+</body>
+</html>
