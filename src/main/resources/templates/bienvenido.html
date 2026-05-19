@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bienvenido</title>
+</head>
+<body>
+
+<h1>LOGIN EXITOSO</h1>
+
+<h2 id="mensaje"></h2>
+
+<script>
+
+    const socket = new WebSocket("ws://178.105.54.33:8080/ws");
+
+    socket.onopen = function () {
+        console.log("Conectado al WebSocket");
+    };
+
+    socket.onmessage = function (event) {
+        document.getElementById("mensaje").innerHTML = event.data;
+    };
+
+    socket.onerror = function (error) {
+        console.log("Error WebSocket:", error);
+    };
+
+</script>
+
+</body>
+</html>

@@ -1,6 +1,5 @@
 package com.prac.demo.controller;
 
-
 import com.prac.demo.model.Usuario;
 import com.prac.demo.repository.UsuarioRepository;
 import org.springframework.stereotype.Controller;
@@ -27,14 +26,18 @@ public class LoginController {
             @RequestParam String pass,
             Model model) {
 
-        Usuario usuario = usuarioRepository
-                .findByCodusuarioAndPass(codusuario, pass);
+        Usuario usuario = usuarioRepository.findByCodusuarioAndPass(codusuario, pass);
 
         if (usuario != null) {
-            return "bienvenido";
+            return "redirect:/bienvenido";
         }
 
         model.addAttribute("error", "Usuario o contraseña incorrectos");
         return "login";
+    }
+
+    @GetMapping("/bienvenido")
+    public String bienvenido() {
+        return "bienvenido";
     }
 }
